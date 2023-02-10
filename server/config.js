@@ -4,10 +4,10 @@ const path = require("path");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 const config = {
-  client_id: "93b83b6c4daa8cf41474",
-  redirect_uri: "http://localhost:3000/login",
-  client_secret: "3f3ecbbdd3dd56a3e3d2ddc54a7350372ff17791",
-  proxy_url: "http://localhost:4000/authenticate"
+  client_id: process.env.REACT_APP_CLIENT_ID,
+  redirect_uri: process.env.REACT_APP_REDIRECT_URI,
+  client_secret: process.env.REACT_APP_CLIENT_SECRET,
+  proxy_url: process.env.REACT_APP_PROXY_URL
 };
 
 const envVarsSchema = Joi.object({
