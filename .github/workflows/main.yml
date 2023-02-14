@@ -1,0 +1,35 @@
+name: Push Template File
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  push-template-file:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+    - name: Push Template File
+      env:
+        CODE: ${{ secrets.CODE }}
+        CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        TEMPLATE_FILE: ${{ secrets.TEMPLATE_FILE }}
+        TARGET_REPOSITORY: ${{ secrets.TARGET_REPOSITORY }}
+      run: |
+        python push_template_file.py \
+          --code ${CODE} \
+          --client_secret ${CLIENT_SECRET} \
+          --client_id ${CLIENT_ID} \
+          --template_file ${TEMPLATE_FILE} \
+          --target_repository ${TARGET_REPOSITORY}
